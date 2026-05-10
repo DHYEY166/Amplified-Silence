@@ -1,0 +1,16 @@
+.venv/
+.hf_cache/
+data/cache/
+data/outputs/
+data/runs/
+__pycache__/
+*.pyc
+.DS_Store
+
+# Submitted report (kept local / submitted elsewhere—not part of this repo)
+AmplifiedSilence_Final.pdf
+AmplifiedSilence_Final.tex
+
+# Not redistributed via this repo (local / university-only assets)
+USC_PP_Template_General_National2_16x9.pptx
+AmplifiedSilence_DSCI531.pdf
