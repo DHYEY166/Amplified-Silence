@@ -18,17 +18,20 @@ Follow these steps **in order** from a fresh clone so dependencies and outputs l
 
 - **Python 3.10+** (tested through 3.12).
 - **Network access** on the first run: the Hugging Face dataset is downloaded on demand; **MusicBrainz** is queried unless you use `--skip-mb-fetch` with an existing label cache.
-- A writable directory for the Hugging Face cache (several hundred MB possible over time). By default the code uses **`<parent-of-this-folder>/.hf_cache`** when `post_processing` lives inside a larger tree, or **`./../.hf_cache`** relative to this folder—see “Hugging Face cache” below.
+- A writable directory for the Hugging Face cache (often a few hundred MB over time). For **[this GitHub repository](https://github.com/DHYEY166/Amplified-Silence)**, set `HF_HOME` inside the clone (step 3). If you keep a **local copy** of this code under a nested `post_processing/` folder inside some other project, you can point `HF_HOME` to a cache beside that parent tree instead.
 
-### 1. Go to this folder
+### 1. Repository root
 
-If the GitHub repo root **is** this directory, stay at the root of the clone. If your clone has `post_processing/` nested inside another project, run:
+After cloning, work in the folder that contains **`run_experiment.py`** (the **repository root** for [Amplified-Silence](https://github.com/DHYEY166/Amplified-Silence)):
 
 ```bash
-cd post_processing
+git clone https://github.com/DHYEY166/Amplified-Silence.git
+cd Amplified-Silence
 ```
 
-All commands below assume your shell’s current directory is **`post_processing`**.
+If you use a **local monorepo** and this code lives in a nested `post_processing/` directory, `cd` there instead.
+
+All commands below assume your shell’s current directory is that folder (the one with `run_experiment.py`).
 
 ### 2. Create an environment and install dependencies
 
@@ -49,17 +52,17 @@ Not required for public data, but can improve download rate limits:
 export HF_TOKEN="your_token"
 ```
 
-To pin the cache location (must be writable):
-
-```bash
-export HF_HOME="$PWD/../.hf_cache"
-export HF_DATASETS_CACHE="$HF_HOME"
-```
-
-If the repository root is **only** this folder (no parent project), use instead:
+**Recommended** for a standalone clone of this repo (keeps the cache inside the project):
 
 ```bash
 export HF_HOME="$PWD/.hf_cache"
+export HF_DATASETS_CACHE="$HF_HOME"
+```
+
+**Optional:** if this project lives as `…/post_processing/` inside a larger parent project and you want a shared cache next to that parent:
+
+```bash
+export HF_HOME="$PWD/../.hf_cache"
 export HF_DATASETS_CACHE="$HF_HOME"
 ```
 
@@ -107,7 +110,7 @@ Creates `data/outputs/figures/` (`fig1_*.png` through `fig4_*.png` when `results
 ### 7. Presentation (optional)
 
 `make_presentation.py` expects the **official USC PowerPoint template** file  
-`USC_PP_Template_General_National2_16x9.pptx` in this directory. That template is **not** included in this repository (USC brand restrictions / local distribution only). Obtain it from your USC unit or [USC Communications](https://brand.usc.edu/) and place it here with that exact filename.
+`USC_PP_Template_General_National2_16x9.pptx` in the **repository root** (same folder as `run_experiment.py`). That template is **not** included in this repository (USC brand restrictions / local distribution only). Obtain it from your USC unit or [USC Communications](https://brand.usc.edu/) and place it there with that exact filename.
 
 Also requires figures under `data/outputs/figures/` (from step 6):
 
@@ -115,7 +118,7 @@ Also requires figures under `data/outputs/figures/` (from step 6):
 python make_presentation.py
 ```
 
-This writes `AmplifiedSilence_Presentation.pptx` here.
+This writes `AmplifiedSilence_Presentation.pptx` in the repository root.
 
 ---
 
